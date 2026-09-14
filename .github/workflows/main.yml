@@ -20,11 +20,21 @@ jobs:
         run: |
           pip install yfinance requests
 
-      - name: 查看檔案
-        run: ls -la
+      - name: 查看檔案與目錄結構
+        run: |
+          echo "=== 當前目錄檔案清單 ==="
+          ls -R
 
       - name: 執行股票程式
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: python main.py
+        run: |
+          MAIN_PATH=$(find . -maxdepth 3 -name "main.py" -print -quit)
+          if [ -n "$MAIN_PATH" ]; then
+            echo "找到檔案：$MAIN_PATH"
+            python "$MAIN_PATH"
+          else
+            echo "錯誤：找不到 main.py！請確認檔名大小寫或是否上傳成功。"
+            exit 1
+          fi
