@@ -4,8 +4,8 @@ import yfinance as yf
 import os
 
 # 從環境變數取得 Telegram Bot Token 與 Chat ID
-token = os.environ["TELEGRAM_BOT_TOKEN"]
-chat_id = os.environ["TELEGRAM_CHAT_ID"]
+token = os.environ.get("TELEGRAM_BOT_TOKEN")
+chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
 # 2. 設定你要查詢的股票代號（Yahoo 財經格式：台積電為 2330.TW，水泥股為 1101.TW）
 stocks = ["1101.TW", "2330.TW"]
@@ -36,4 +36,5 @@ for stock_id in stocks:
       "text": message
     }
   )
+
   time.sleep(2)
