@@ -1,8 +1,6 @@
 name: 股票即時通知
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -21,6 +19,9 @@ jobs:
       - name: 安裝套件
         run: |
           pip install yfinance requests
+
+      - name: 查看檔案
+        run: ls -la
 
       - name: 執行股票程式
         env:
