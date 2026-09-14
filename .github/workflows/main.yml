@@ -1,9 +1,9 @@
 name: Run Stock Bot
 
 on:
-  workflow_dispatch: # 讓你可以手動在網頁上按按鈕立刻執行
+  workflow_dispatch: # 手動觸發
   schedule:
-    - cron: '0 9 * * *' # 每天固定時間執行（可依需求調整）
+    - cron: '0 1 * * *' # 台灣時間每天早上 09:00 執行 (UTC 01:00)
 
 jobs:
   run-python:
