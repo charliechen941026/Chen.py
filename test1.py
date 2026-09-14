@@ -1,10 +1,11 @@
 import time
 import requests
 import yfinance as yf
+import os
 
-# 1. 設定你的 Telegram Bot Token 與 Chat ID
-token = "8839048485:AAF6sz6zVRvjVcgs9yQnfrUs-e98GNx5eoY"
-chat_id = "6066323383"
+# 從環境變數取得 Telegram Bot Token 與 Chat ID
+token = os.environ.get("TELEGRAM_BOT_TOKEN")
+chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
 # 2. 設定你要查詢的股票代號（Yahoo 財經格式：台積電為 2330.TW，水泥股為 1101.TW）
 stocks = ["1101.TW", "2330.TW"]
@@ -27,6 +28,13 @@ for stock_id in stocks:
     message = f"股票 {stock_id} 查詢發生錯誤: {e}"
 
   # 發送至 Telegram
-  telegram_url = f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}"
-  requests.get(telegram_url)
+  telegram_url = f"https://api.telegram.org/bot{token}/sendMessage"
+  requests.get(
+    telegram_url,
+    params={
+      "chat_id": chat_id,
+      "text": message
+    }
+  )
+
   time.sleep(2)
